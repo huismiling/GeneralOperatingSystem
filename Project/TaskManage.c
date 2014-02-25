@@ -144,6 +144,7 @@ int TaskSchedule()
   struct TaskTimeList *TaskTimeListP;
   struct TaskPrioNode *TaskPrioNodeP,*TaskPrioNodeQ,*TaskPrioNodeU,*TaskPrioNodeF;
   
+  TaskPriorityTmp=CurrentPriority;
   TaskPrioNodeP=ListHead->tasknode;
   if(ListHead->Time==0)
   {
@@ -152,7 +153,6 @@ int TaskSchedule()
       if(TaskAlreadySchedule[TaskPrioNodeP->Priority]==0)
       {
         TaskAlreadySchedule[TaskPrioNodeP->Priority]=-1;
-        TaskPriorityTmp=CurrentPriority;
         CurrentPriority=TaskPrioNodeP->Priority;
         if(*TaskArry[CurrentPriority] != 0)
           (*TaskArry[CurrentPriority])();
