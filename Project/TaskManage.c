@@ -1,6 +1,6 @@
 #include "TaskManage.h"
 
-void (*TaskArry[TaskNum])(void);
+void (*TaskArray[TaskNum])(void);
 unsigned char TaskAlreadySchedule[TaskNum]={0};
 unsigned char CurrentPriority=TaskNum;
 
@@ -18,9 +18,9 @@ unsigned char firstaddtask=0;
 int AddTask(void (*p_Task)(void),unsigned char TaskPriority)
 {
   unsigned char TaskPriorityTmp;
-  if (TaskArry[TaskPriority]==0)
+  if (TaskArray[TaskPriority]==0)
   {
-    TaskArry[TaskPriority]=p_Task;
+    TaskArray[TaskPriority]=p_Task;
     CurrentPriority=(CurrentPriority>TaskPriority)?TaskPriority:CurrentPriority;
   }
   else
@@ -49,7 +49,7 @@ int AddTask(void (*p_Task)(void),unsigned char TaskPriority)
 
 int DeleteTask(unsigned char TaskPriority)
 {
-  TaskArry[TaskPriority]=0;
+  TaskArray[TaskPriority]=0;
   TaskAlreadySchedule[TaskPriority]=0;
   return 0;
 }
@@ -154,8 +154,8 @@ int TaskSchedule()
       {
         TaskAlreadySchedule[TaskPrioNodeP->Priority]=-1;
         CurrentPriority=TaskPrioNodeP->Priority;
-        if(*TaskArry[CurrentPriority] != 0)
-          (*TaskArry[CurrentPriority])();
+        if(*TaskArray[CurrentPriority] != 0)
+          (*TaskArray[CurrentPriority])();
         CurrentPriority=TaskPriorityTmp;
         TaskAlreadySchedule[TaskPrioNodeP->Priority]=0;
         TaskPrioNodeF=TaskPrioNodeP;

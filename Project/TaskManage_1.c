@@ -10,7 +10,7 @@ struct TaskTimeList{
   struct TaskTimeList *next;
 };
 
-void (*TaskArry[TaskNum])(void);
+void (*TaskArray[TaskNum])(void);
 unsigned char TaskAlreadySchedule[TaskNum]={0};
 unsigned char TaskAlreadyAdd[TaskNum]={0};
 unsigned char TaskTime[TaskNum]={0};
@@ -21,9 +21,9 @@ unsigned char firstaddtask=0;
 int AddTask(void (*p_Task)(void),unsigned char TaskPriority)
 {
   //unsigned char TaskPriorityTmp;
-  if (TaskArry[TaskPriority]==0)
+  if (TaskArray[TaskPriority]==0)
   {
-    TaskArry[TaskPriority]=p_Task;
+    TaskArray[TaskPriority]=p_Task;
     TaskAlreadyAdd[TaskPriority]=1;
     TaskTime[TaskPriority]=1;
     CurrentPriority=(CurrentPriority>TaskPriority)?TaskPriority:CurrentPriority;
@@ -36,7 +36,7 @@ int AddTask(void (*p_Task)(void),unsigned char TaskPriority)
 
 int DeleteTask(unsigned char TaskPriority)
 {
-  TaskArry[TaskPriority]=0;
+  TaskArray[TaskPriority]=0;
   TaskAlreadySchedule[TaskPriority]=0;
   return 0;
 }
@@ -55,13 +55,13 @@ int TaskSchedule()
   PrioritySearch=0;
   while(PrioritySearch<TaskNum)
   {
-    if(TaskArry[PrioritySearch]!=0 && TaskAlreadySchedule[PrioritySearch]==0)
+    if(TaskArray[PrioritySearch]!=0 && TaskAlreadySchedule[PrioritySearch]==0)
       TaskTime[PrioritySearch]--;
     PrioritySearch++;
   }
   for (PrioritySearch=0;PrioritySearch<TaskNum;PrioritySearch++)
   {
-    if(TaskArry[PrioritySearch]!=0)
+    if(TaskArray[PrioritySearch]!=0)
     {
       if(TaskAlreadySchedule[PrioritySearch]==0)
       {
@@ -69,7 +69,7 @@ int TaskSchedule()
         {
           TaskAlreadySchedule[PrioritySearch]++;
           CurrentPriority=PrioritySearch;
-          (*TaskArry[CurrentPriority])();
+          (*TaskArray[CurrentPriority])();
           CurrentPriority=TaskPriorityTmp;
           TaskAlreadySchedule[PrioritySearch]--;
         }
