@@ -1,20 +1,9 @@
 #include "TaskManage.h"
 
-struct TaskPrioNode{
-  unsigned char Priority;
-  struct TaskPrioNode *next;
- };
-struct TaskTimeList{
-  unsigned int Time;
-  struct TaskPrioNode *tasknode;
-  struct TaskTimeList *next;
-};
-
 void (*TaskArray[TaskNum])(void);
 unsigned char TaskAlreadySchedule[TaskNum]={0};
 unsigned char TaskAlreadyAdd[TaskNum]={0};
 unsigned char TaskTime[TaskNum]={0};
-struct TaskPrioNode TaskNode[TaskNum];
 unsigned char CurrentPriority=TaskNum;
 
 unsigned char firstaddtask=0;
@@ -26,7 +15,7 @@ int AddTask(void (*p_Task)(void),unsigned char TaskPriority)
     TaskArray[TaskPriority]=p_Task;
     TaskAlreadyAdd[TaskPriority]=1;
     TaskTime[TaskPriority]=1;
-    CurrentPriority=(CurrentPriority>TaskPriority)?TaskPriority:CurrentPriority;
+    //CurrentPriority=(CurrentPriority>TaskPriority)?TaskPriority:CurrentPriority;
   }
   else
     return -1;
