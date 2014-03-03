@@ -209,7 +209,7 @@ int TaskSchedule()
           }
           TaskPrioNodeU=TaskPrioNodeU->next;
         }
-        TaskPrioNodeU=TaskPrioNodeQ?TaskPrioNodeQ:TaskPrioNodeP;
+        TaskPrioNodeU->next=TaskPrioNodeQ?TaskPrioNodeQ:TaskPrioNodeP;
         ListHead->next=TaskTimeListP->next;
         free((void*)TaskTimeListP);
       }

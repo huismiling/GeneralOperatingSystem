@@ -41,14 +41,15 @@ void delay(unsigned int t)
 {
   unsigned int j;
   for(;t>0;t--)
-    for(j=0;j<100;j++)
+    for(j=0;j<1000;j++)
       ;
 }
 
 void task1()
 {
   P1OUT^=0x01;
-  TaskDelay(10);
+  delay(400);
+  TaskDelay(2);
   //P1OUT^=0x01;
 }
 void task2()
